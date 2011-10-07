@@ -25,9 +25,15 @@ module GoogleBooks
         API.send(:query).should include 'key=ABCDEFG'
       end
       
+      it "should accept in an IP address" do
+        response = API.search('damien white', :ip_address => "70.251.134.215")
+        response.count.should == 10
+      end
+      
       it "should join parameters" do
         API.search('damien white', :count => 20, :page => 2)
-        API.send(:query).should include 'startIndex=2&maxResults=20'
+        API.send(:query).should include 'startIndex=2'
+        API.send(:query).should include 'maxResults=20'
       end
       
       it "should return the proper number results based on the count passed in" do

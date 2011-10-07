@@ -23,6 +23,8 @@ module GoogleBooks
         parameters['maxResults'] = opts[:count] if opts[:count]
         parameters['key'] = opts[:api_key] if opts[:api_key]
         
+        headers "X-Forwarded-For" => opts[:ip_address] if opts[:ip_address]
+        
         result = get(url.to_s)
         Response.new result
       end
